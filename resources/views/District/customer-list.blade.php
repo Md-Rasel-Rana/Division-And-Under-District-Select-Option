@@ -15,9 +15,8 @@
                 <thead>
                 <tr class="bg-light">
                     <th>No</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Mobile</th>
+                    <th>Division Name</th>
+                    <th>District Name</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -29,16 +28,16 @@
     </div>
 </div>
 </div>
-{{-- 
+
 <script>
 
-getList();
+DivisionDistrictList();
 
-
-async function getList() {
-    showLoader();
-    let res=await axios.get("/list-customer");
-    hideLoader();
+async function DivisionDistrictList() {
+   // showLoader();
+    let res=await axios.get("/Division-District-List");
+    console.log(res);
+   // hideLoader();
 
     let tableList=$("#tableList");
     let tableData=$("#tableData");
@@ -46,23 +45,38 @@ async function getList() {
     tableData.DataTable().destroy();
     tableList.empty();
 
-    res.data.forEach(function (item,index) {
-        let row=`<tr>
-                    <td>${index+1}</td>
-                    <td>${item['name']}</td>
-                    <td>${item['email']}</td>
-                    <td>${item['mobile']}</td>
+    res.data.forEach(function (item, index) {
+    let row = `<tr>
+                    <td>${index + 1}</td>
+                    <td>${item['name']}</td>`;
+    
+    // Create a string to hold all district names
+    let districtNames = "";
+
+    // Iterate over the districts array of the current item
+    item['districts'].forEach(function (district, districtIndex) {
+        // Concatenate district names separated by a comma and space
+        districtNames += district['name'];
+        if (districtIndex < item['districts'].length - 1) {
+            districtNames += ',';
+        }
+    });
+
+    // Add the district names to the row
+    row += `<td>${districtNames}</td>
                     <td>
-                        <button data-id="${item['id']}" class="btn editBtn btn-sm btn-outline-success">Edit</button>
-                        <button data-id="${item['id']}" class="btn deleteBtn btn-sm btn-outline-danger">Delete</button>
+                        <button data-id="${item['id']}" class="btn editBtn btn-sm btn-success">Edit</button>
+                        <button data-id="${item['id']}" class="btn deleteBtn btn-sm btn-danger">Delete</button>
                     </td>
-                 </tr>`
-        tableList.append(row)
-    })
+                 </tr>`;
+
+    // Append the row to the tableList
+    tableList.append(row);
+});
 
     $('.editBtn').on('click', async function () {
            let id= $(this).data('id');
-           await FillUpUpdateForm(id)
+          // await FillUpUpdateForm(id)
            $("#update-modal").modal('show');
     })
 
@@ -81,4 +95,4 @@ async function getList() {
 
 
 </script>
- --}}
+

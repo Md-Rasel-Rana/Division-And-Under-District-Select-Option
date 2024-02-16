@@ -52,6 +52,14 @@ class DemoController extends Controller
         ]);
     }
 
+    public function UserList(){
+       return Userinfo::with('division','district')->get();
+    }
+    public function DivisionDistrictList(){
+       return Division::with('Districts')->get();
+    }
+
+
 }
 
 

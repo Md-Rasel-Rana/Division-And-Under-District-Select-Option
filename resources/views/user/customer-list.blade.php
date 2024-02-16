@@ -18,6 +18,8 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Mobile</th>
+                    <th>Division Name</th>
+                    <th>District Name</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -29,16 +31,15 @@
     </div>
 </div>
 </div>
-{{-- 
+
 <script>
 
 getList();
 
 
 async function getList() {
-    //showLoader();
-    let res=await axios.get("/list-customer");
-    //hideLoader();
+
+    let res=await axios.get("/user-list");
 
     let tableList=$("#tableList");
     let tableData=$("#tableData");
@@ -49,12 +50,14 @@ async function getList() {
     res.data.forEach(function (item,index) {
         let row=`<tr>
                     <td>${index+1}</td>
-                    <td>${item['name']}</td>
-                    <td>${item['email']}</td>
-                    <td>${item['mobile']}</td>
+                    <td>${item['UserName']}</td>
+                    <td>${item['UserEmail']}</td>
+                    <td>${item['UserMobile']}</td>
+                    <td>${item['division']['name']}</td>
+                    <td>${item['district']['name']}</td>
                     <td>
-                        <button data-id="${item['id']}" class="btn editBtn btn-sm btn-outline-success">Edit</button>
-                        <button data-id="${item['id']}" class="btn deleteBtn btn-sm btn-outline-danger">Delete</button>
+                        <button data-id="${item['id']}" class="btn editBtn btn-sm btn-success">Edit</button>
+                        <button data-id="${item['id']}" class="btn deleteBtn btn-sm btn-danger">Delete</button>
                     </td>
                  </tr>`
         tableList.append(row)
@@ -62,7 +65,7 @@ async function getList() {
 
     $('.editBtn').on('click', async function () {
            let id= $(this).data('id');
-           await FillUpUpdateForm(id)
+          // await FillUpUpdateForm(id)
            $("#update-modal").modal('show');
     })
 
@@ -81,4 +84,4 @@ async function getList() {
 
 
 </script>
- --}}
+

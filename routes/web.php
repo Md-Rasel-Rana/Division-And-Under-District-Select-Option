@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/user-info', [DemoController::class, 'userpage']);
     Route::get('/District-List/{divisionId}', [DemoController::class, 'DistrictList']);
     Route::post('/user-store', [DemoController::class, 'userstore']);
+    Route::get('/user-list',[Democontroller::class,'UserList']);
+    Route::get('/Division-District-List',[Democontroller::class,'DivisionDistrictList']);
 
 });
 

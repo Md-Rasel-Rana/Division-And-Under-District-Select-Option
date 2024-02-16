@@ -92,6 +92,7 @@ $('#DivisionName').on('change', function() {
                     if(response.status===201){
                         successToast('User created Successfully');
                         document.getElementById('save-form').reset();
+                        getList();
                 }
             }catch{
                 console.log(err);
